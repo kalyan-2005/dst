@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { NavigationMenuDemo } from "./navigationMenu";
+import { FaCircleUser } from "react-icons/fa6";
 
-function Navbar() {
+function Navbar({ currentUser }: any) {
   const [isOpen, setIsOpen] = React.useState(false);
   const router = useRouter();
   return (
@@ -15,19 +16,27 @@ function Navbar() {
         <h1>LOGO</h1>
         <h1>Name</h1>
       </div>
-      <div><NavigationMenuDemo/></div>
+      <div>
+        <NavigationMenuDemo />
+      </div>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex gap-2 items-center bg-slate-900 hover:bg-slate-800 cursor-pointer rounded-full p-0.5 px-2 relative"
+        className="flex gap-2 items-center bg-slate-900 hover:bg-slate-800 cursor-pointer rounded-full p-1 px-2 relative"
       >
         <div>
-          <Image
-            className="rounded-full w-8 h-8"
-            src="/signin-bg.jpg"
-            alt="user"
-            width={40}
-            height={40}
-          />
+          {currentUser?.image ? (
+            <Image
+              className="rounded-full w-8 h-8"
+              src={currentUser?.image}
+              alt="user"
+              width={40}
+              height={40}
+            />
+          ) : (
+            <div className="rounded-full w-8 h-8 flex justify-center items-center">
+              <FaCircleUser className="text-2xl" />
+            </div>
+          )}
         </div>
         <div>{isOpen ? <FaCaretUp /> : <FaCaretDown />}</div>
         {isOpen && (
@@ -42,7 +51,12 @@ function Navbar() {
                 Profile
               </button>
               <hr />
-              <button onClick={async () =>await signOut({callbackUrl:"/signin"})} className="p-2 px-6 hover:bg-blue-500">Logout</button>
+              <button
+                onClick={async () => await signOut({ callbackUrl: "/signin" })}
+                className="p-2 px-6 hover:bg-blue-500"
+              >
+                Logout
+              </button>
             </div>
           </div>
         )}
