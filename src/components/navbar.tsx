@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { NavigationMenuDemo } from "./navigationMenu";
 
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -14,6 +15,7 @@ function Navbar() {
         <h1>LOGO</h1>
         <h1>Name</h1>
       </div>
+      <div><NavigationMenuDemo/></div>
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex gap-2 items-center bg-slate-900 hover:bg-slate-800 cursor-pointer rounded-full p-0.5 px-2 relative"
