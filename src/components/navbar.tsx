@@ -1,20 +1,21 @@
 "use client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { NavigationMenuDemo } from "./navigationMenu";
 import { FaCircleUser } from "react-icons/fa6";
+import { ProfileDialog } from "./profile";
 
 function Navbar({ currentUser }: any) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const router = useRouter();
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
   return (
     <div className="flex justify-between p-2 px-8 shadow-lg sticky top-0 items-center">
       <div className="flex gap-4">
         <h1>LOGO</h1>
         <h1>Name</h1>
+        <ProfileDialog currentUser={currentUser} open={isProfileOpen} onOpenChange={setIsProfileOpen} setIsProfileOpen={setIsProfileOpen} />
       </div>
       <div>
         <NavigationMenuDemo />
@@ -44,7 +45,8 @@ function Navbar({ currentUser }: any) {
             <div className="">
               <button
                 onClick={() => {
-                  router.push("/profile");
+                  setIsProfileOpen(!isProfileOpen);
+                  setIsOpen(false);
                 }}
                 className="p-2 px-6 w-full hover:bg-blue-500"
               >

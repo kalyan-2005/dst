@@ -53,6 +53,7 @@ model User {
   role          Role      @default(USER)
   accounts      Account[]
   sessions      Session[]
+  Issue         Issue[]
 
   @@map("users")
 }
@@ -71,4 +72,23 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Issue {
+  id          String      @id @default(cuid())
+  title       String?
+  description String?
+  location    String?
+  status      IssueStatus @default(OPEN)
+  assignedTo  String?
+  otp         String?
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+}
+
+enum IssueStatus {
+  OPEN
+  VERIFY
+  CLOSE
 }

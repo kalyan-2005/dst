@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "../../components/navbar";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import { IssueSheet } from "@/components/issueSheet";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,16 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-primary text-white`}>
         <div>
-          <Navbar currentUser={currentUser}/>
+          <Navbar currentUser={currentUser} />
         </div>
-        <div>{children}</div>
+        <div>
+          {children}
+          {currentUser?.role === "USER" && (
+            <div className="fixed right-8 bottom-8">
+              <IssueSheet />
+            </div>
+          )}
+        </div>
       </body>
     </html>
   );

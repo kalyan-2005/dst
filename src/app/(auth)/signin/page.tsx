@@ -1,20 +1,50 @@
-
+"use client";
 import React from "react";
 import { LuUser2 } from "react-icons/lu";
 import { GoUnlock } from "react-icons/go";
 import { TbLogin } from "react-icons/tb";
-import { FcGoogle } from "react-icons/fc";
-import { signIn } from "@/auth"
 import Google from "./Google";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
+function Page() {  // Updated name here
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
 
-function page() {
+  const handleLogin = async () => {
+    // e.preventDefault();  // Prevent default form submission behavior
+    setLoading(true);
+    try {
+      toast.loading("Signing in...");
+      const response = await signIn('credentials', {
+        email: "kalyantingani@gmail.com",
+        password: "shiva",
+        callbackUrl: "/",
+        redirect: false,
+      });
+      toast.dismiss();  // Dismiss the loading toast
+
+      if (response?.error) {
+        toast.error("Invalid email or password");
+      } else {
+        toast.success("Login successful...");
+        router.push("http://localhost:3000/");
+      }
+    } catch (error: any) {
+      toast.dismiss();
+      toast.error("An error occurred. Please try again later");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-primary min-h-screen pt-[16vh] text-white">
+      <Toaster />
       <div className="w-[400px] h-[450px] rounded-3xl border p-6 flex flex-col justify-center gap-4 border-slate-500 mx-auto bg-transparent backdrop-blur-xl">
         <h1 className="text-center font-bold text-2xl">Log In</h1>
-        <form className="flex flex-col gap-4 mt-4">
+        <form className="flex flex-col gap-4 mt-4" onSubmit={handleLogin}> {/* Added onSubmit here */}
           <div className="relative">
             <LuUser2 className="text-xl absolute right-3 text-slate-500 top-3" />
             <input
@@ -31,15 +61,19 @@ function page() {
               placeholder="Password"
             />
           </div>
-          <button className="my-6 flex justify-center gap-2 items-center w-full text-center bg-white rounded-full p-2 text-black font-semibold hover:bg-secondary hover:text-white duration-200">
-            <TbLogin className="text-xl"/> Log In
+          <button
+            type="submit"  // Changed to submit to properly trigger form submission
+            className="my-6 flex justify-center gap-2 items-center w-full text-center bg-secondary rounded-full p-2 font-semibold hover:bg-blue-500 text-white duration-200"
+            disabled={loading}  // Disable button when loading
+          >
+            <TbLogin className="text-xl" /> Log In
           </button>
         </form>
         <h1 className="text-center text-slate-500">or</h1>
-    <Google />
+        <Google />
       </div>
     </div>
   );
 }
 
-export default page;
+export default Page;
