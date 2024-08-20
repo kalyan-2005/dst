@@ -2,7 +2,9 @@
 import React, { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CiLock } from "react-icons/ci";
-import { FaEye } from "react-icons/fa";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
+import { CiEdit } from "react-icons/ci";
 
 function SetPassword({ currentUser, setIsProfileOpen }: any) {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -42,11 +44,11 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
       {currentUser?.password ? (
         !editPassword ? (
           <div className="flex justify-between my-4 items-center">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center text-sm">
               <CiLock className="text-lg" />
               Edit Password
             </div>
-            <button onClick={() => setEditPassword(!editPassword)}>Edit</button>
+            <button onClick={() => setEditPassword(!editPassword)}><CiEdit className="text-4xl p-1.5 rounded-full hover:bg-slate-800" /></button>
           </div>
         ) : (
           <div className="flex gap-2 my-4 items-center">
@@ -72,10 +74,10 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
               )}
               {
                 <h1
-                  className="absolute text-sm right-1 top-1"
+                  className="absolute text-md cursor-pointer right-1 top-1"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? "hide" : "show"}
+                  {showPassword ? <FaEye/> : <FaEyeSlash/>}
                 </h1>
               }
             </div>
@@ -120,10 +122,10 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
               )}
               {
                 <h1
-                  className="absolute text-sm right-1 top-1"
+                  className="absolute text-lg cursor-pointer right-1 top-1"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? "hide" : "show"}
+                  {showPassword ? <FaEye/> : <FaEyeSlash/>}
                 </h1>
               }
             </div>

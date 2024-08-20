@@ -29,7 +29,7 @@ function Page() {  // Updated name here
         toast.error("Invalid email or password");
       } else {
         toast.success("Login successful...");
-        router.push("http://localhost:3000/");
+        router.push("/");
       }
     } catch (error: any) {
       toast.dismiss();

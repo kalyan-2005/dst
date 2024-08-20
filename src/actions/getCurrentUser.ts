@@ -23,3 +23,12 @@ export const getCurrentUser = async() => {
     return null;
   }
 }
+
+export const getAllUsers = async() => {
+  try {
+    const users = await db.user.findMany();
+    return users;
+  } catch (error: any) {
+    return null;
+  }
+}

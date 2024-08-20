@@ -53,7 +53,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function NavigationMenuDemo() {
+export function NavigationMenuDemo({currentUser}: any) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -108,12 +108,21 @@ export function NavigationMenuDemo() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Documentation
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        {(currentUser.role==="MANAGER" || currentUser?.role==="ADMIN")&&
+        <NavigationMenuItem>
+          <Link href="/users" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Manage Users
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        }
       </NavigationMenuList>
     </NavigationMenu>
   );

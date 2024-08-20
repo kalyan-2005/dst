@@ -63,7 +63,7 @@ export function IssueSheet() {
         <SheetHeader>
           <SheetTitle>Report an issue</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            Send already defined issue or describe about your own issue.Please share your location too.
           </SheetDescription>
         </SheetHeader>
         <SelectIssue issues={issues}/>

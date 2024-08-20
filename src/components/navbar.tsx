@@ -18,7 +18,7 @@ function Navbar({ currentUser }: any) {
         <ProfileDialog currentUser={currentUser} open={isProfileOpen} onOpenChange={setIsProfileOpen} setIsProfileOpen={setIsProfileOpen} />
       </div>
       <div>
-        <NavigationMenuDemo />
+        <NavigationMenuDemo currentUser={currentUser} />
       </div>
       <div
         onClick={() => setIsOpen(!isOpen)}

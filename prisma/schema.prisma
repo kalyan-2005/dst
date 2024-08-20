@@ -78,13 +78,15 @@ model Issue {
   id          String      @id @default(cuid())
   title       String?
   description String?
-  location    String?
+  location    Json?
   status      IssueStatus @default(OPEN)
+  closedAt    DateTime?
   assignedTo  String?
   otp         String?
   userId      String
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 enum IssueStatus {
