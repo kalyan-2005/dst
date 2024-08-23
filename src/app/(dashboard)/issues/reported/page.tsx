@@ -4,10 +4,11 @@ import { getAllTechnicians } from "@/actions/technician";
 import AssignTech from "@/components/assignTech";
 import { DialogDemo } from "@/components/confirmDialog";
 import { TooltipDemo } from "@/components/hoverDesc";
+import MapComponent from "@/components/MapComponent";
 import React from "react";
 
 async function page() {
-  function timeAgo(timestamp:any) {
+  function timeAgo(timestamp: any) {
     // Step 1: Parse the timestamp
     const pastDate = new Date(timestamp);
 
@@ -38,7 +39,8 @@ async function page() {
   const issues = await getIssuesForUser("OPEN");
   const currentUser = await getCurrentUser();
   const technicians = await getAllTechnicians();
-  
+  const locations = issues?.map((issue) => issue.location);
+
   return (
     <div className="w-3/4 m-auto p-4 max-sm:w-full">
       <div className="flex justify-between items-center my-6">
@@ -54,28 +56,46 @@ async function page() {
           <tr>
             <th className="py-2 uppercase">Sl.No</th>
             <th className="py-2 uppercase">Issue</th>
-            {(currentUser?.role === "ADMIN" || currentUser?.role === "TECHNICIAN" || currentUser?.role === "MANAGER") && <th className="py-2 ps-4 uppercase text-start">Reporter</th>}
+            {(currentUser?.role === "ADMIN" ||
+              currentUser?.role === "TECHNICIAN" ||
+              currentUser?.role === "MANAGER") && (
+              <th className="py-2 ps-4 uppercase text-start">Reporter</th>
+            )}
             <th className="py-2 uppercase">Location</th>
             <th className="py-2 uppercase">Reported on</th>
             {currentUser?.role === "MANAGER" && (
               <th className="py-2 uppercase">Technician</th>
             )}
-            {currentUser?.role === "TECHNICIAN" && <th className="py-2 uppercase">Status</th>}
+            {currentUser?.role === "TECHNICIAN" && (
+              <th className="py-2 uppercase">Status</th>
+            )}
           </tr>
         </thead>
         <tbody>
           {issues?.map((issue, index) => (
             <tr className=" text-center border-b border-gray-500">
               <td className="py-4">{index + 1}</td>
-            <td><TooltipDemo name={issue.title||"no title"} desc={issue.description||"no description"}/></td>
+              <td>
+                <TooltipDemo
+                  name={issue.title || "no title"}
+                  desc={issue.description || "no description"}
+                />
+              </td>
               {currentUser?.role === "ADMIN" ||
-                (currentUser?.role === "MANAGER"||currentUser?.role === "TECHNICIAN") && <td>
-                  <div className="text-start ps-4">
-                    <h1>{issue.user.name}</h1>
-                    <h1 className="text-sm text-gray-500">{issue.user.email}</h1>
-                  </div>
-                </td>}
-              <td>{issue.location?.latitude}{" "}{issue.location?.longitude}</td>
+                ((currentUser?.role === "MANAGER" ||
+                  currentUser?.role === "TECHNICIAN") && (
+                  <td>
+                    <div className="text-start ps-4">
+                      <h1>{issue.user.name}</h1>
+                      <h1 className="text-sm text-gray-500">
+                        {issue.user.email}
+                      </h1>
+                    </div>
+                  </td>
+                ))}
+              <td>
+                {issue.location?.latitude} {issue.location?.longitude}
+              </td>
               <td>
                 <div>
                   <h1>{issue.createdAt.toISOString().split("T")[0]}</h1>{" "}
@@ -84,12 +104,28 @@ async function page() {
                   </h1>
                 </div>
               </td>
-              {currentUser?.role === "MANAGER" && <td><AssignTech issue={issue} technicians={technicians} currentTech={issue.assignedTo}/></td>}
-              {currentUser?.role === "TECHNICIAN" && <td><DialogDemo id={issue.id}/></td>}
+              {currentUser?.role === "MANAGER" && (
+                <td>
+                  <AssignTech
+                    issue={issue}
+                    technicians={technicians}
+                    currentTech={issue.assignedTo}
+                  />
+                </td>
+              )}
+              {currentUser?.role === "TECHNICIAN" && (
+                <td>
+                  <DialogDemo id={issue.id} />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
+      {currentUser?.role !== "USER" && <div className="mt-32">
+        <h1 className="my-4 text-end font-bold text-xl">Locations on Map</h1>
+        <MapComponent locations={locations} />
+      </div>}
     </div>
   );
 }

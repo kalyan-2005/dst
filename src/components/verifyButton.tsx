@@ -71,9 +71,10 @@ export function VerifyOtp({ email,issueId }: any) {
           <InputOTPDemo issueId={issueId} />
         </div>
         <DialogFooter>
-          <button className="" type="submit">
-            Resend
-          </button>
+          <div className="text-center text-sm text-gray-500">
+            OTP sent is valid until this dialog box is open
+            <h1 className="text-center text-xs text-gray-500">On reopen, another otp is sent</h1>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

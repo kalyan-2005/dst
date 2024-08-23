@@ -16,8 +16,14 @@ const GeoLocation = ({ location, setLocation }: { location: any, setLocation: an
         },
         (err) => {
           setError(err.message);
+        },
+        {
+          enableHighAccuracy: true, // Request high accuracy
+          timeout: 5000, // Timeout after 5 seconds
+          maximumAge: 0, // Do not use cached position
         }
       );
+      
     } else {
       setError("Geolocation is not supported by this browser.");
     }

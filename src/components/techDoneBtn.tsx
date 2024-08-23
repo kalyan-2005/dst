@@ -29,7 +29,7 @@ function TechDoneBtn(id: any) {
     }
   return (
     <div>
-        <button onClick={handleSubmit} className="p-1 px-2 rounded bg-white text-primary font-semibold hover:scale-95 duration-200">Confirm</button>
+        <button onClick={handleSubmit} className="p-1 px-2 rounded bg-white text-primary font-semibold hover:scale-95 duration-200 mt-12">Confirm</button>
     </div>
   )
 }

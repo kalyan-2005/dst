@@ -114,7 +114,7 @@ export function NavigationMenuDemo({currentUser}: any) {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        {(currentUser.role==="MANAGER" || currentUser?.role==="ADMIN")&&
+        {(currentUser?.role==="MANAGER" || currentUser?.role==="ADMIN")&&
         <NavigationMenuItem>
           <Link href="/users" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
