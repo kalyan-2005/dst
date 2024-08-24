@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React from "react";
 import { CiLock } from "react-icons/ci";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
+import toast from "react-hot-toast";
 
 function SetPassword({ currentUser, setIsProfileOpen }: any) {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -40,7 +40,6 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
   };
   return (
     <div>
-      <Toaster />
       {currentUser?.password ? (
         !editPassword ? (
           <div className="flex justify-between my-4 items-center">
@@ -48,7 +47,7 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
               <CiLock className="text-lg" />
               Edit Password
             </div>
-            <button onClick={() => setEditPassword(!editPassword)}><CiEdit className="text-4xl p-1.5 rounded-full hover:bg-slate-800" /></button>
+            <button onClick={() => setEditPassword(!editPassword)}><CiEdit className="text-4xl p-1.5 rounded-full hover:bg-slate-200" /></button>
           </div>
         ) : (
           <div className="flex gap-2 my-4 items-center">
@@ -65,7 +64,7 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
                 />
               ) : (
                 <input
-                  className="outline-none bg-transparent border-b"
+                  className="outline-none bg-transparent border-b border-black"
                   type="text"
                   placeholder="set password"
                   value={password}
@@ -83,13 +82,13 @@ function SetPassword({ currentUser, setIsProfileOpen }: any) {
             </div>
             <div className="flex gap-2 items-center">
             <button
-              className="rounded p-1 px-2 bg-secondary hover:bg-blue-500"
+              className="rounded p-1 px-2 bg-primary text-white hover:bg-blue-500"
               onClick={() => setEditPassword(!editPassword)}
             >
               cancel
             </button>
             <button
-              className="rounded p-1 px-4 bg-secondary hover:bg-blue-500"
+              className="rounded p-1 px-4 bg-primary text-white hover:bg-blue-500"
               onClick={handleSetPassword}
             >
               set

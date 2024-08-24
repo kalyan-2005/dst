@@ -45,7 +45,7 @@ export function ProfileDialog({
             )}
           </DialogTitle>
         </DialogHeader>
-        <div>
+        <div className="font-semibold">
           <h1 className="text-2xl font-bold text-center">
             {currentUser?.name}
           </h1>

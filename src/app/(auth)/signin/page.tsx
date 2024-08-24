@@ -4,7 +4,7 @@ import { LuUser2 } from "react-icons/lu";
 import { GoUnlock } from "react-icons/go";
 import { TbLogin } from "react-icons/tb";
 import Google from "./Google";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -40,8 +40,7 @@ function Page() {  // Updated name here
   };
 
   return (
-    <div className="bg-primary min-h-screen pt-[16vh] text-white">
-      <Toaster />
+    <div className="bg-background min-h-screen pt-[16vh]">
       <div className="w-[400px] h-[450px] rounded-3xl border p-6 flex flex-col justify-center gap-4 border-slate-500 mx-auto bg-transparent backdrop-blur-xl">
         <h1 className="text-center font-bold text-2xl">Log In</h1>
         <form className="flex flex-col gap-4 mt-4" onSubmit={handleLogin}> {/* Added onSubmit here */}
@@ -63,7 +62,7 @@ function Page() {  // Updated name here
           </div>
           <button
             type="submit"  // Changed to submit to properly trigger form submission
-            className="my-6 flex justify-center gap-2 items-center w-full text-center bg-secondary rounded-full p-2 font-semibold hover:bg-blue-500 text-white duration-200"
+            className="my-6 flex justify-center gap-2 items-center w-full text-center rounded-full p-2 font-semibold bg-primary text-white duration-200"
             disabled={loading}  // Disable button when loading
           >
             <TbLogin className="text-xl" /> Log In

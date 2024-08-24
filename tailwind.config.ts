@@ -22,10 +22,10 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "#FFFFF3",
         foreground: "hsl(var(--foreground))",
-        primary: "#0B1120",
-        secondary: "#0EA5E9",
+        primary: "#008FFD",
+        secondary: "#E8ECF9",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",

@@ -17,7 +17,7 @@ const Google = () => {
     <form
         action={handleSignin}
     >
-      <button className="my-6 flex justify-center gap-2 items-center w-full text-center bg-white rounded-full p-2 text-black font-semibold hover:scale-105 duration-500">
+      <button className="my-6 flex justify-center gap-2 items-center w-full text-center shadow-md border bg-white rounded-full p-2 text-black font-semibold hover:scale-105 duration-500">
         <FcGoogle /> Continue with Google
       </button>
     </form>

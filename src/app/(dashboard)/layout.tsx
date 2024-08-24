@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "../../components/navbar";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { IssueSheet } from "@/components/issueSheet";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,17 +20,13 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-primary text-white`}>
-        <div>
+      <body className={`${inter.className} bg-background`}>
+        <Toaster/>
+        <div className="sticky top-0 bg-background">
           <Navbar currentUser={currentUser} />
         </div>
         <div>
           {children}
-          {currentUser?.role === "USER" && (
-            <div className="fixed right-8 bottom-8">
-              <IssueSheet />
-            </div>
-          )}
         </div>
       </body>
     </html>
