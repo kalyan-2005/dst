@@ -5,7 +5,7 @@ import { GoUnlock } from "react-icons/go";
 import { TbLogin } from "react-icons/tb";
 import Google from "./Google";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 function Page() {  // Updated name here
@@ -20,9 +20,10 @@ function Page() {  // Updated name here
       const response = await signIn('credentials', {
         email: "kalyantingani@gmail.com",
         password: "shiva",
-        callbackUrl: "/",
-        redirect: false,
       });
+
+      redirect("/");
+
       toast.dismiss();  // Dismiss the loading toast
 
       if (response?.error) {

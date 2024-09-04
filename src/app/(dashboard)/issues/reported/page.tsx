@@ -94,7 +94,7 @@ async function page() {
                   </td>
                 ))}
               <td>
-                {issue.location?.latitude} {issue.location?.longitude}
+                {/* {issue.location?.latitude} {issue.location?.longitude} */}
               </td>
               <td>
                 <div>
@@ -124,7 +124,7 @@ async function page() {
       </table>
       {currentUser?.role !== "USER" && <div className="mt-32">
         <h1 className="my-4 text-end font-bold text-xl">Locations on Map</h1>
-        <MapComponent locations={locations} />
+        {/* <MapComponent locations={locations} /> */}
       </div>}
     </div>
   );

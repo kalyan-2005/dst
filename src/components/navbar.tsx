@@ -3,7 +3,6 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { NavigationMenuDemo } from "./navigationMenu";
 import { FaCircleUser } from "react-icons/fa6";
 import { ProfileDialog } from "./profile";
 import Link from "next/link";

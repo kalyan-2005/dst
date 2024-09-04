@@ -20,25 +20,33 @@ import {
 
 const frameworks = [
   {
-    value: "issue-1",
-    label: "issue-1",
+    value: "Low water pressure",
+    label: "Low water pressure",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "High water pressure",
+    label: "High water pressure",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "No water from x days",
+    label: "No water from x days",
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "Pipe leakage",
+    label: "Pipe leakage",
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: "Polluted water supply",
+    label: "Polluted water supply",
   },
+  {
+    value: "Valve leakage",
+    label: "Valve leakage",
+  },
+  {
+    value: "Water leakage",
+    label: "Water leakage",
+  }
 ]
 
 export function IssueDropdown({value,setValue}:any) {
@@ -50,7 +58,7 @@ export function IssueDropdown({value,setValue}:any) {
         <button
           role="combobox"
           aria-expanded={open}
-          className="justify-between flex items-center w-1/2 p-2 rounded bg-secondary shadow-md font-semibold"
+          className={`justify-between flex items-center w-1/2 p-2 rounded bg-secondary shadow-md ${value?"text-black font-semibold":"text-gray-400"}`}
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
@@ -62,7 +70,7 @@ export function IssueDropdown({value,setValue}:any) {
         <Command>
           <CommandInput placeholder="Search for issue" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No issue found.</CommandEmpty>
             <CommandGroup>
               {frameworks.map((framework) => (
                 <CommandItem
