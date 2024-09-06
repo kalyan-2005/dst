@@ -13,7 +13,7 @@ export function TooltipDemo({ name,desc }: { name: string, desc: string }) {
           <button>{name}</button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{desc}</p>
+          <p className="max-w-60">{desc}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

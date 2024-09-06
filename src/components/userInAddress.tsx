@@ -5,13 +5,17 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-function ReportIssuePage() {
+function ReportIssuePage({savedAddress, savedMobile, savedName}: any) {
   const [customTitle, setCustomTitle] = useState("");
   const [value, setValue] = useState("");
   const [customDesc, setCustomDesc] = useState("");
   const router = useRouter();
 
   const handleSubmit = () => {
+    if(!savedAddress||!savedMobile||!savedName) {
+      toast.error("Please save address first");
+      return;
+    }
     toast.loading("Reporting issue...");
     fetch("/api/sendIssue", {
       method: "POST",
@@ -41,6 +45,10 @@ function ReportIssuePage() {
   };
 
   const defaultHandleSubmit = () => {
+    if(!savedAddress||!savedMobile||!savedName) {
+      toast.error("Please save address first");
+      return;
+    }
     toast.loading("Reporting issue...");
     fetch("/api/sendIssue", {
       method: "POST",

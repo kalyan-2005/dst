@@ -71,8 +71,8 @@ function Navbar({ currentUser }: any) {
             <Link
               href={link.href}
               key={link.href}
-              className={`p-1 px-3 rounded-full font-semibold hover:bg-primary/75 hover:text-white duration-200 ${
-                (pathname === link.href||(pathname.startsWith("/issues/")&&link.name==="Issues")) && "bg-primary text-white"
+              className={`p-1 px-3 rounded-full font-semibold duration-200 ${
+                (pathname === link.href||(pathname.startsWith("/issues/")&&link.name==="Issues")) ? "bg-primary text-white":"hover:bg-primary/75 hover:text-white"
               }`}
             >
               {link.name}

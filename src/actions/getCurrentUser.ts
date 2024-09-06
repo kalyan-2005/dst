@@ -32,3 +32,23 @@ export const getAllUsers = async() => {
     return null;
   }
 }
+
+export const getAddress = async() => {
+  try {
+    const currentUser = await getCurrentUser();
+    if(!currentUser) return null;
+    const address = await db.user.findUnique({
+      where: {
+        id: currentUser.id
+      },
+      select: {
+        address: true,
+        mobile: true,
+        registeredName: true
+      }
+    });
+    return address;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
