@@ -94,7 +94,7 @@ async function page() {
                   </td>
                 ))}
               <td>
-                {/* {issue.location?.latitude} {issue.location?.longitude} */}
+                {issue.user.address || "no address"}
               </td>
               <td>
                 <div>

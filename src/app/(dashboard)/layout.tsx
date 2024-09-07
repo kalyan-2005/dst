@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import Navbar from "../../components/navbar";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Toaster } from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,16 +19,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentUser = await getCurrentUser();
+
+  if(!currentUser) {
+    redirect('/signin')
+  }
+
   return (
     <html lang="en">
       <body className={`${inter.className} bg-background`}>
-        <Toaster/>
+        <Toaster />
         <div className="sticky top-0 bg-background">
           <Navbar currentUser={currentUser} />
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </body>
     </html>
   );

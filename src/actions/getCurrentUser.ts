@@ -26,7 +26,11 @@ export const getCurrentUser = async() => {
 
 export const getAllUsers = async() => {
   try {
-    const users = await db.user.findMany();
+    const users = await db.user.findMany({
+      include: {
+        sensor: true
+      }
+    });
     return users;
   } catch (error: any) {
     return null;
@@ -48,6 +52,14 @@ export const getAddress = async() => {
       }
     });
     return address;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+export const getAllSensors = async() => {
+  try {
+    const sensors = await db.sensor.findMany();
+    return sensors;
   } catch (error: any) {
     throw new Error(error);
   }

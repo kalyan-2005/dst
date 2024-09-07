@@ -43,12 +43,16 @@ function Navbar({ currentUser }: any) {
         href: "/issues/reported",
       },
       {
-        name: "Contact",
-        href: "/contact",
+        name: "Sensors",
+        href: "/sensors",
       },
       {
-        name: "Services",
-        href: "/services",
+        name: "Users",
+        href: "/users",
+      },
+      {
+        name: "Profile",
+        href: "/profile",
       },
     ];
     
@@ -109,14 +113,14 @@ function Navbar({ currentUser }: any) {
                   }}
                   className="p-2 px-6 w-full hover:bg-primary hover:text-white"
                 >
-                  Profile
+                  Account
                 </button>
                 <hr />
                 <button
                   onClick={async () =>
                     await signOut({ callbackUrl: "/signin" })
                   }
-                  className="p-2 px-6 hover:bg-blue-500 hover:text-white"
+                  className="p-2 px-6 hover:bg-blue-500 hover:text-white w-full"
                 >
                   Logout
                 </button>

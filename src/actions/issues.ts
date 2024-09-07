@@ -11,7 +11,7 @@ export const getIssuesForUser = async (status: any) => {
                 status: status
             },
             include: {
-                user: true
+                user: true,
             },
             orderBy: {
                 createdAt: 'desc'
@@ -37,6 +37,9 @@ export const getIssuesForUser = async (status: any) => {
         where: {
             userId: currentUser?.id,
             status: status,
+        },
+        include: {
+            user: true
         },
         orderBy: {
             createdAt: 'desc'

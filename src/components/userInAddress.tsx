@@ -25,7 +25,6 @@ function ReportIssuePage({savedAddress, savedMobile, savedName}: any) {
       body: JSON.stringify({
         title: customTitle,
         description: customDesc,
-        location: "Temp",
       }),
     })
       .then((response) => {

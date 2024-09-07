@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
     // return NextResponse.json({ message: request });
     const body = await request.json();
-    const { title, description, location } = body;
+    const { title, description } = body;
     const currentUser = await getCurrentUser();
     if (!currentUser) {
         return NextResponse.error();
@@ -15,7 +15,6 @@ export async function POST(request: Request) {
         data: {
             title:title,
             description:description,
-            location:location,
             userId:userId
         }
     })

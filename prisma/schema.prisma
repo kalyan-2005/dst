@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -44,21 +41,35 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  password      String?
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  password       String?
   registeredName String?
-  mobile        String?
-  address       String?
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  role          Role      @default(USER)
-  accounts      Account[]
-  sessions      Session[]
-  Issue         Issue[]
+  mobile         String?
+  address        String?
+  emailVerified  DateTime? @map("email_verified")
+  sensor         Sensor?   @relation(fields: [sensorId], references: [id])
+  image          String?
+  role           Role      @default(USER)
+  accounts       Account[]
+  sessions       Session[]
+  sensorId       String?
+  userIssues     Issue[]   @relation(name: "user_issues")
+  assignedIssues Issue[]   @relation(name: "assigned_issues")
 
   @@map("users")
+}
+
+model Sensor {
+  id        String   @id @default(cuid())
+  name      String
+  latitude  String?
+  longitude String?
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User[]
 }
 
 enum Role {
@@ -78,19 +89,20 @@ model VerificationToken {
 }
 
 model Issue {
-  id          String      @id @default(cuid())
-  title       String?
-  description String?
-  location    Json?
-  status      IssueStatus @default(OPEN)
-  closedAt    DateTime?
-  assignedTo  String?
-  assignedAt  DateTime?
-  otp         String?
-  userId      String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id           String      @id @default(cuid())
+  title        String?
+  description  String?
+  location     Json?
+  status       IssueStatus @default(OPEN)
+  closedAt     DateTime?
+  assignedTo   User?       @relation(name: "assigned_issues", fields: [assignedToId], references: [id], onDelete: SetNull)
+  assignedToId String?
+  assignedAt   DateTime?
+  otp          String?
+  userId       String
+  user         User        @relation(name: "user_issues", fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 enum IssueStatus {

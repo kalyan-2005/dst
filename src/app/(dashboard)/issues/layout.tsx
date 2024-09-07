@@ -19,13 +19,21 @@ const tabs = [
 ];
 
 function layout({ children }: { children: React.ReactNode }) {
-    const pathname= usePathname();
+  const pathname = usePathname();
   return (
     <div>
       <div className="flex mt-4">
         <div className="p-1 rounded bg-secondary m-auto flex gap-8">
           {tabs.map((tab) => (
-            <Link className={`p-1.5 px-3 rounded font-bold duration-200 uppercase ${pathname === `/issues/${tab.href}` ? "bg-primary text-white" : "hover:bg-primary/75 hover:text-white"}`} href={tab.href} key={tab.name}>
+            <Link
+              className={`p-1.5 px-3 rounded font-bold duration-200 uppercase ${
+                pathname === `/issues/${tab.href}`
+                  ? "bg-primary text-white"
+                  : "hover:bg-primary/75 hover:text-white"
+              }`}
+              href={tab.href}
+              key={tab.name}
+            >
               {tab.name}
             </Link>
           ))}
