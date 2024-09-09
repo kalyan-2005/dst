@@ -7,7 +7,7 @@ export async function POST(req : NextRequest) {
     const body = await req.json();
     const {address, mobile, registeredName} = body;
     const currentUser = await getCurrentUser();
-    if(!currentUser) return null;
+    if(!currentUser) return NextResponse.json({message:"Unauthorized"});
     try {
         const user = await db.user.update({
             where: {
