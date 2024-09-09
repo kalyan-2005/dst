@@ -2,12 +2,16 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req : NextRequest) {
+export async function POST(req: NextRequest) {
 
     const body = await req.json();
-    const {address, mobile, registeredName} = body;
+    const { address, mobile, registeredName } = body;
     const currentUser = await getCurrentUser();
-    if(!currentUser) return NextResponse.json({message:"Unauthorized"});
+    
+    if (!currentUser) {
+        return new NextResponse("Unauthorized", { status: 401 });
+    }
+    
     try {
         const user = await db.user.update({
             where: {
@@ -18,9 +22,10 @@ export async function POST(req : NextRequest) {
                 mobile,
                 registeredName
             }
-        })
-        return NextResponse.json("user updated");
+        });
+
+        return new NextResponse(JSON.stringify({ message: "User updated" }), { status: 200 });
     } catch (error) {
-        throw new Error('Failed to add address');
+        return new NextResponse("Failed to update user", { status: 500 });
     }
 }
