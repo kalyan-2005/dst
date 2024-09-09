@@ -19,7 +19,7 @@ export async function POST(req : NextRequest) {
                 registeredName
             }
         })
-        return NextResponse.json(user);
+        return NextResponse.json("user updated");
     } catch (error) {
         throw new Error('Failed to add address');
     }
