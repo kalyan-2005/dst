@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/actions/getCurrentUser";
 import Linechart from "@/components/line-chart";
 import axios from "axios";
 
@@ -7,11 +8,14 @@ export default async function Home() {
       "https://api.thingspeak.com/channels/2629854/feeds.json?api_key=J74065WFYJRPMLK3"
     )
     .then((res) => res.data);
+  const user = await getCurrentUser();
   return (
     <div>
-      <div className="mx-32 flex gap-8 mt-4">
+      <div className="mx-32 flex gap-8 mt-4 min-h-[300px]">
         {/* chart */}
-        <Linechart/>
+        <div className="w-1/2 shadow-md rounded">
+          <Linechart selectedSensor={user?.sensor} />
+        </div>
         {/* image */}
         <div className="w-1/2 shadow-md rounded">hii</div>
       </div>

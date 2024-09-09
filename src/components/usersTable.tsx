@@ -6,9 +6,12 @@ import toast from "react-hot-toast";
 import { FaCircleUser } from "react-icons/fa6";
 import axios from "axios";
 
-function UsersTable({ users, sensors }: any) {
+function UsersTable({ users, sensors, currentUser }: any) {
   const router = useRouter();
-
+  if(!currentUser||currentUser.role!=="MANAGER") {
+    router.back();
+    return;
+  }
   const handleChangeRole = async (email: string, role: string) => {
     toast.loading("Updating user role...");
     try {

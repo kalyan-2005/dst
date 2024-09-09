@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import { LuUser2 } from "react-icons/lu";
@@ -8,19 +8,21 @@ import Google from "./Google";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignIn() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
       toast.loading("Signing in...");
-      const result = await signIn('credentials', {
+      const result = await signIn("credentials", {
         email: email,
         password: password,
         redirect: false,
@@ -44,7 +46,7 @@ export default function SignIn() {
   return (
     <div className="bg-background min-h-screen pt-[16vh]">
       <div className="w-[400px] h-[450px] rounded-3xl border p-6 flex flex-col justify-center gap-4 border-slate-500 mx-auto bg-transparent backdrop-blur-xl">
-        <h1 className="text-center font-bold text-2xl">Log In</h1>
+        <h1 className="text-center font-bold text-2xl pt-6">Log In</h1>
         <form className="flex flex-col gap-4 mt-4" onSubmit={handleLogin}>
           <div className="relative">
             <LuUser2 className="text-xl absolute right-3 text-slate-500 top-3" />
@@ -57,9 +59,13 @@ export default function SignIn() {
             />
           </div>
           <div className="relative">
-            <GoUnlock className="text-xl absolute right-3 text-slate-500 top-3" />
+            {/* <GoUnlock className="text-xl absolute right-3 text-slate-500 top-3" /> */}
+            {showPassword ? <FaEyeSlash className="text-xl absolute right-3 text-slate-500 top-3 cursor-pointer" onClick={() => setShowPassword(!showPassword)} /> : <FaEye
+              className="text-xl absolute right-3 text-slate-500 top-3 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            />}
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               className="bg-transparent rounded-full w-full border border-slate-500 outline-none p-2 px-4"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}

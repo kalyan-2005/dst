@@ -7,7 +7,7 @@ export const getIssuesForUser = async (status: any) => {
     if(currentUser.role==="TECHNICIAN")  {
         const issues = await db.issue.findMany({
             where: {
-                assignedTo: currentUser?.id,
+                assignedToId: currentUser?.id,
                 status: status
             },
             include: {

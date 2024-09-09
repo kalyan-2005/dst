@@ -39,21 +39,38 @@ async function page() {
   const issues = await getIssuesForUser("OPEN");
   const currentUser = await getCurrentUser();
   const technicians = await getAllTechnicians();
-  const locations = issues?.map((issue) => issue.location);
+  const locations = issues?.map((issue) => issue.user);
+
+  const handleChangeTech = async (issueId: string, techId: string) => {
+    try {
+      const response = await fetch("/api/assign-technician", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ issueId, techId }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div className="w-3/4 m-auto p-4 max-sm:w-full">
-      <div className="flex justify-between items-center my-6">
-        <h1 className="text-2xl font-bold text-secondary">
-          Reported ({issues?.length})
-        </h1>
+    <div
+      className={`${
+        currentUser?.role !== "USER" ? "w-11/12" : "w-4/5"
+      } m-auto p-4 max-sm:w-full`}
+    >
+      <div className="flex justify-end items-center my-6">
         <h1 className="text-sm rounded-full text-yellow-500 border border-yellow-500 p-1 px-2">
           Under consideration
         </h1>
       </div>
       <table className="w-full">
-        <thead className="border-b ">
-          <tr>
+        <thead>
+          <tr className="text-center uppercase bg-secondary">
             <th className="py-2 uppercase">Sl.No</th>
             <th className="py-2 uppercase">Issue</th>
             {(currentUser?.role === "ADMIN" ||
@@ -61,7 +78,9 @@ async function page() {
               currentUser?.role === "MANAGER") && (
               <th className="py-2 ps-4 uppercase text-start">Reporter</th>
             )}
-            <th className="py-2 uppercase">Location</th>
+            {currentUser?.role !== "USER" && (
+              <th className="py-2 uppercase">Location</th>
+            )}
             <th className="py-2 uppercase">Reported on</th>
             {currentUser?.role === "MANAGER" && (
               <th className="py-2 uppercase">Technician</th>
@@ -73,7 +92,7 @@ async function page() {
         </thead>
         <tbody>
           {issues?.map((issue, index) => (
-            <tr className=" text-center border-b border-gray-500">
+            <tr key={issue.id} className=" text-center border-b border-gray-500">
               <td className="py-4">{index + 1}</td>
               <td>
                 <TooltipDemo
@@ -93,9 +112,9 @@ async function page() {
                     </div>
                   </td>
                 ))}
-              <td>
-                {issue.user.address || "no address"}
-              </td>
+              {currentUser?.role !== "USER" && (
+                <td className="text-sm max-w-[200px] text-start">{issue.user.address || "no address"}</td>
+              )}
               <td>
                 <div>
                   <h1>{issue.createdAt.toISOString().split("T")[0]}</h1>{" "}
@@ -106,11 +125,7 @@ async function page() {
               </td>
               {currentUser?.role === "MANAGER" && (
                 <td>
-                  <AssignTech
-                    issue={issue}
-                    technicians={technicians}
-                    currentTech={issue.assignedTo}
-                  />
+                  <AssignTech issue={issue} technicians={technicians}/>
                 </td>
               )}
               {currentUser?.role === "TECHNICIAN" && (
@@ -122,10 +137,13 @@ async function page() {
           ))}
         </tbody>
       </table>
-      {currentUser?.role !== "USER" && <div className="mt-32">
-        <h1 className="my-4 text-end font-bold text-xl">Locations on Map</h1>
-        {/* <MapComponent locations={locations} /> */}
-      </div>}
+      {currentUser?.role !== "USER" && (
+        <div className="mt-32">
+          <h1 className="my-4 text-end font-bold text-xl">Locations on Map</h1>
+          <pre>{JSON.stringify(issues, null, 2)}</pre>
+          {/* <MapComponent locations={locations} /> */}
+        </div>
+      )}
     </div>
   );
 }

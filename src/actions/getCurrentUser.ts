@@ -12,6 +12,9 @@ export const getCurrentUser = async() => {
       where: {
         email: session.user.email
       },
+      include: {
+        sensor: true
+      }
     });
     
     if (!currentUser) {
@@ -58,7 +61,11 @@ export const getAddress = async() => {
 }
 export const getAllSensors = async() => {
   try {
-    const sensors = await db.sensor.findMany();
+    const sensors = await db.sensor.findMany({
+      include: {
+        User: true
+      }
+    });
     return sensors;
   } catch (error: any) {
     throw new Error(error);

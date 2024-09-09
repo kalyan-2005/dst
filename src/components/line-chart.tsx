@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { DatePickerDemo } from "./datePicker";
 import LineChart from "./lineChart";
 
-function Linechart() {
+function Linechart({selectedSensor}: any) {
   const [date, setDate] = useState<Date | null>(null);
   const data1 = [12, 19, 3, 5, 2, 3]; // Replace with your first dataset
   const data2 = [22, 29, 13, 15, 12, 13]; // Replace with your second dataset
@@ -15,8 +15,9 @@ function Linechart() {
   }, []);
 
   return (
-    <div className="w-1/2 p-4 rounded shadow-md">
-      <div className="flex justify-end">
+    <div className="p-4 rounded">
+      <div className="flex justify-between items-center">
+        <h1 className="text-xl font-semibold">Sensor {selectedSensor?.name}</h1>
         <DatePickerDemo date={date} setDate={setDate} />
       </div>
       <div className="">

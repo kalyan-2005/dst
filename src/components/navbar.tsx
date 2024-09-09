@@ -58,7 +58,7 @@ function Navbar({ currentUser }: any) {
     
   }
   return (
-    <div className="flex justify-between p-2 px-8 shadow-lg items-center">
+    <div className="flex justify-between p-2 px-8 shadow-lg items-center z-50">
       <div className="flex gap-4">
         <h1 className="font-black text-2xl">LOGO</h1>
         <ProfileDialog
@@ -104,7 +104,7 @@ function Navbar({ currentUser }: any) {
           </div>
           <div>{isOpen ? <FaCaretUp /> : <FaCaretDown />}</div>
           {isOpen && (
-            <div className="absolute rounded-lg bg-secondary shadow-md min-w-max border overflow-hidden right-0 top-12 text-sm flex flex-col gap-2 cursor-pointer">
+            <div className="absolute rounded-lg bg-secondary shadow-md min-w-max border overflow-hidden right-0 top-12 z-50 text-sm flex flex-col gap-2 cursor-pointer">
               <div className="">
                 <button
                   onClick={() => {

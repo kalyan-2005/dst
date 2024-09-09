@@ -9,7 +9,8 @@ export async function POST(request: Request) {
             id: issueId,
         },
         data: {
-            assignedTo: techId,
+            assignedToId: techId,
+            assignedAt: new Date(),
         },
     });
     return NextResponse.json(issue);
