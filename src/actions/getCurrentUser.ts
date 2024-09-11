@@ -54,7 +54,11 @@ export const getAddress = async() => {
         registeredName: true
       }
     });
-    return address;
+    return {
+      address: address?.address,
+      mobile: address?.mobile,
+      registeredName: address?.registeredName
+    } as any;
   } catch (error: any) {
     throw new Error(error);
   }
