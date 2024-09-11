@@ -7,7 +7,8 @@ export async function POST(req : NextRequest) {
     const body = await req.json();
     const {address, mobile, registeredName} = body;
     const currentUser = await getCurrentUser();
-    if(!currentUser) return null;
+    if(!currentUser)
+        return NextResponse.json(null);
     try {
         const user = await db.user.update({
             where: {
@@ -19,7 +20,9 @@ export async function POST(req : NextRequest) {
                 registeredName
             }
         })
-        return NextResponse.json(user);
+        return NextResponse.json({
+            message: 'Address added successfully',
+        });
     } catch (error) {
         throw new Error('Failed to add address');
     }
