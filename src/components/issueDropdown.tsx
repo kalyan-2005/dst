@@ -28,6 +28,14 @@ const frameworks = [
     label: "High water pressure",
   },
   {
+    value: "Low water flow",
+    label: "Low water flow",
+  },
+  {
+    value: "High water flow",
+    label: "High water flow",
+  },
+  {
     value: "No water from x days",
     label: "No water from x days",
   },

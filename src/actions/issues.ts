@@ -20,7 +20,15 @@ export const getIssuesForUser = async (status: any) => {
                         mobile: true,
                     }
                 },
-                assignedTo: true
+                assignedTo: {
+                    select: {
+                        name: true,
+                        email: true,
+                        mobile: true,
+                        address: true,
+                        sensor: true
+                    }
+                }
             },
             orderBy: {
                 createdAt: 'desc'
@@ -43,7 +51,16 @@ export const getIssuesForUser = async (status: any) => {
                         mobile: true,
                     }
                 },
-                assignedTo: true
+                assignedTo: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        mobile: true,
+                        address: true,
+                        sensor: true
+                    }
+                }
             },
             orderBy: {
                 createdAt: 'desc'

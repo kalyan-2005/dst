@@ -99,6 +99,7 @@ model Issue {
   assignedToId String?
   assignedAt   DateTime?
   otp          String?
+  feedback     Int?
   userId       String
   user         User        @relation(name: "user_issues", fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime    @default(now())

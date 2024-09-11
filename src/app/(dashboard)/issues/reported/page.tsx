@@ -13,10 +13,10 @@ import { FaCircleUser } from "react-icons/fa6";
 async function page() {
   function timeAgo(timestamp: any) {
     // Step 1: Parse the timestamp
-    const pastDate = new Date(timestamp);
+    const pastDate:any = new Date(timestamp);
 
     // Step 2: Get the current time
-    const now = new Date();
+    const now:any = new Date();
 
     // Step 3: Calculate the difference in milliseconds
     const diffMs = now - pastDate;
@@ -44,21 +44,6 @@ async function page() {
   const technicians = await getAllTechnicians();
   const locations = issues?.map((issue) => issue.user.sensor);
 
-  const handleChangeTech = async (issueId: string, techId: string) => {
-    try {
-      const response = await fetch("/api/assign-technician", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ issueId, techId }),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div
@@ -73,7 +58,7 @@ async function page() {
       </div>
       {currentUser?.role !== "USER" && (
         <div className="my-6">
-          <MapComponent locations={locations} />
+          <MapComponent locations={locations} selectedSensor={null} />
         </div>
       )}
       <table className="w-full mb-20">
