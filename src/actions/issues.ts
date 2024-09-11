@@ -18,6 +18,7 @@ export const getIssuesForUser = async (status: any) => {
                         email: true,
                         address: true,
                         mobile: true,
+                        image: true
                     }
                 },
                 assignedTo: {
@@ -49,6 +50,7 @@ export const getIssuesForUser = async (status: any) => {
                         email: true,
                         address: true,
                         mobile: true,
+                        image: true
                     }
                 },
                 assignedTo: {
