@@ -28,8 +28,9 @@ function TechDoneBtn(id: any) {
         }
     }
   return (
-    <div>
-        <button onClick={handleSubmit} className="p-1 px-2 rounded bg-white text-primary font-semibold hover:scale-95 duration-200 mt-12">Confirm</button>
+    <div className='flex items-center gap-4 mt-8'>
+        <button className='text-primary font-semibold'>Cancel</button>
+        <button onClick={handleSubmit} className="p-1 px-2 rounded bg-primary/75 text-white font-semibold hover:bg-primary duration-200">Confirm</button>
     </div>
   )
 }

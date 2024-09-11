@@ -32,7 +32,7 @@ function Navbar({ currentUser }: any) {
         href: "/profile",
       },
     ];
-  } else {
+  } else if(currentUser?.role==="MANAGER" || currentUser?.role==="ADMIN") {
     links = [
       {
         name: "Home",
@@ -55,7 +55,21 @@ function Navbar({ currentUser }: any) {
         href: "/profile",
       },
     ];
-    
+  } else {
+    links = [
+      {
+        name: "Home",
+        href: "/",
+      },
+      {
+        name: "Issues",
+        href: "/issues/reported",
+      },
+      {
+        name: "Profile",
+        href: "/profile",
+      },
+    ];
   }
   return (
     <div className="flex justify-between p-2 px-8 shadow-lg items-center z-50">

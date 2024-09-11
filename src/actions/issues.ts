@@ -11,7 +11,16 @@ export const getIssuesForUser = async (status: any) => {
                 status: status
             },
             include: {
-                user: true,
+                user: {
+                    select: {
+                        sensor: true,
+                        name: true,
+                        email: true,
+                        address: true,
+                        mobile: true,
+                    }
+                },
+                assignedTo: true
             },
             orderBy: {
                 createdAt: 'desc'
@@ -25,7 +34,16 @@ export const getIssuesForUser = async (status: any) => {
                 status: status,
             },
             include: {
-                user: true
+                user: {
+                    select: {
+                        sensor: true,
+                        name: true,
+                        email: true,
+                        address: true,
+                        mobile: true,
+                    }
+                },
+                assignedTo: true
             },
             orderBy: {
                 createdAt: 'desc'
@@ -39,7 +57,8 @@ export const getIssuesForUser = async (status: any) => {
             status: status,
         },
         include: {
-            user: true
+            user: true,
+            assignedTo: true
         },
         orderBy: {
             createdAt: 'desc'

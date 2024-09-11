@@ -3,7 +3,6 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
-
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
@@ -15,6 +14,9 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  // Get today's date
+  const today = new Date()
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -57,10 +59,13 @@ function Calendar({
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
       }}
+      // Disable future dates by setting the "toDate" to today
+      toDate={today}
       {...props}
     />
   )
 }
+
 Calendar.displayName = "Calendar"
 
 export { Calendar }

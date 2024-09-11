@@ -2,7 +2,9 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getIssuesForUser } from "@/actions/issues";
 import { TooltipDemo } from "@/components/hoverDesc";
 import { VerifyOtp } from "@/components/verifyButton";
+import Image from "next/image";
 import React from "react";
+import { FaCircleUser } from "react-icons/fa6";
 
 async function page() {
   function timeAgo(timestamp: any) {
@@ -37,29 +39,27 @@ async function page() {
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="w-3/4 m-auto p-4 max-sm:w-full">
-      <div className="flex justify-between items-center my-6">
-        <h1 className="text-2xl font-bold text-secondary">
-          Issues Resolved ({issues?.length})
-        </h1>
+    <div className="w-11/12 m-auto p-4 max-sm:w-full">
+      <div className="flex justify-end items-center my-2">
         <h1 className="text-sm rounded-full text-green-500 border border-green-500 p-1 px-2">
           Approved
         </h1>
       </div>
       <table className="w-full">
         <thead className="border-b ">
-          <tr>
+          <tr className="text-center uppercase bg-secondary">
             <th className="py-2 uppercase">Sl.No</th>
             <th className="py-2 uppercase">Issue</th>
-            {(currentUser?.role === "ADMIN" ||
-              currentUser?.role === "TECHNICIAN" ||
-              currentUser?.role === "MANAGER") && (
+            {currentUser?.role !== "USER" && (
               <th className="py-2 uppercase text-start">Reporter</th>
             )}
             <th className="py-2 uppercase">Location</th>
             <th className="py-2 uppercase">Reported on</th>
+            <th className="py-2 uppercase">Assigned on</th>
             <th className="py-2 uppercase">Resolved on</th>
-            {currentUser?.role !== "TECHNICIAN" && <th className="py-2 uppercase">Technician</th>}
+            {currentUser?.role !== "TECHNICIAN" && (
+              <th className="py-2 uppercase">Technician</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -75,7 +75,20 @@ async function page() {
               {currentUser?.role === "ADMIN" ||
                 ((currentUser?.role === "MANAGER" ||
                   currentUser?.role === "TECHNICIAN") && (
-                  <td>
+                  <td className="flex items-center gap-3 py-1">
+                    {issue.user.image ? (
+                      <Image
+                        src={issue.user.image}
+                        className="rounded-full w-40 h-40"
+                        width={50}
+                        height={50}
+                        alt=""
+                      />
+                    ) : (
+                      <div>
+                        <FaCircleUser className="text-4xl" />
+                      </div>
+                    )}
                     <div className="text-start">
                       <h1>{issue.user.name}</h1>
                       <h1 className="text-sm text-gray-500">
@@ -84,7 +97,12 @@ async function page() {
                     </div>
                   </td>
                 ))}
-              <td>{issue.location?.latitude}{" "}{issue.location?.longitude}</td>
+              <td>
+                <TooltipDemo
+                  name={"location"}
+                  desc={issue.user.address || "no description"}
+                />
+              </td>
               <td>
                 <div>
                   <h1>{issue.createdAt.toISOString().split("T")[0]}</h1>{" "}
@@ -93,8 +111,25 @@ async function page() {
                   </h1>
                 </div>
               </td>
-              <td>-</td>
-              {currentUser?.role !== "TECHNICIAN" && <td>{issue.assignedTo}</td>}
+              <td>
+                <div>
+                  <h1>{issue.assignedAt?.toISOString().split("T")[0]}</h1>{" "}
+                  <h1 className="text-sm text-gray-500">
+                    {timeAgo(issue.assignedAt?.toISOString())}
+                  </h1>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <h1>{issue.closedAt?.toISOString().split("T")[0]}</h1>{" "}
+                  <h1 className="text-sm text-gray-500">
+                    {timeAgo(issue.closedAt?.toISOString())}
+                  </h1>
+                </div>
+              </td>
+              {currentUser?.role !== "TECHNICIAN" && (
+                <td>{issue.assignedTo?.name}</td>
+              )}
             </tr>
           ))}
         </tbody>

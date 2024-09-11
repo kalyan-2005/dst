@@ -22,7 +22,7 @@ function layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div>
-      <div className="flex mt-4">
+      <div className="flex mt-6">
         <div className="p-1 rounded bg-secondary m-auto flex gap-8">
           {tabs.map((tab) => (
             <Link

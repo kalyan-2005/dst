@@ -11,7 +11,8 @@ export async function POST(request: Request) {
             id:issueId
         },
         data: {
-            otp: otpString
+            otp: otpString,
+            closedAt: new Date()
         }
     })
 

@@ -63,7 +63,7 @@ const MapComponent = ({ locations, selectedSensor, setSelectedSensor }: any) => 
             }}
           >
             <Popup autoClose={false}>
-              <h1>{location.name}</h1>
+              <h1>{index+1}.{location.name}</h1>
             </Popup>
           </Marker>
         ))}

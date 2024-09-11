@@ -5,7 +5,10 @@ import AssignTech from "@/components/assignTech";
 import { DialogDemo } from "@/components/confirmDialog";
 import { TooltipDemo } from "@/components/hoverDesc";
 import MapComponent from "@/components/MapComponent";
+import Image from "next/image";
 import React from "react";
+import { FaUser } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
 
 async function page() {
   function timeAgo(timestamp: any) {
@@ -39,7 +42,7 @@ async function page() {
   const issues = await getIssuesForUser("OPEN");
   const currentUser = await getCurrentUser();
   const technicians = await getAllTechnicians();
-  const locations = issues?.map((issue) => issue.user);
+  const locations = issues?.map((issue) => issue.user.sensor);
 
   const handleChangeTech = async (issueId: string, techId: string) => {
     try {
@@ -63,25 +66,29 @@ async function page() {
         currentUser?.role !== "USER" ? "w-11/12" : "w-4/5"
       } m-auto p-4 max-sm:w-full`}
     >
-      <div className="flex justify-end items-center my-6">
+      <div className="flex justify-end items-center my-2">
         <h1 className="text-sm rounded-full text-yellow-500 border border-yellow-500 p-1 px-2">
           Under consideration
         </h1>
       </div>
-      <table className="w-full">
+      {currentUser?.role !== "USER" && (
+        <div className="my-6">
+          <MapComponent locations={locations} />
+        </div>
+      )}
+      <table className="w-full mb-20">
         <thead>
           <tr className="text-center uppercase bg-secondary">
             <th className="py-2 uppercase">Sl.No</th>
             <th className="py-2 uppercase">Issue</th>
-            {(currentUser?.role === "ADMIN" ||
-              currentUser?.role === "TECHNICIAN" ||
-              currentUser?.role === "MANAGER") && (
-              <th className="py-2 ps-4 uppercase text-start">Reporter</th>
+            {currentUser?.role !== "USER" && (
+              <th className="py-2 uppercase text-start">Reporter</th>
             )}
+            <th className="py-2 uppercase">Reported on</th>
+            <th className="py-2 uppercase">Assigned on</th>
             {currentUser?.role !== "USER" && (
               <th className="py-2 uppercase">Location</th>
             )}
-            <th className="py-2 uppercase">Reported on</th>
             {currentUser?.role === "MANAGER" && (
               <th className="py-2 uppercase">Technician</th>
             )}
@@ -92,7 +99,10 @@ async function page() {
         </thead>
         <tbody>
           {issues?.map((issue, index) => (
-            <tr key={issue.id} className=" text-center border-b border-gray-500">
+            <tr
+              key={issue.id}
+              className=" text-center border-b border-gray-500"
+            >
               <td className="py-4">{index + 1}</td>
               <td>
                 <TooltipDemo
@@ -100,21 +110,29 @@ async function page() {
                   desc={issue.description || "no description"}
                 />
               </td>
-              {currentUser?.role === "ADMIN" ||
-                ((currentUser?.role === "MANAGER" ||
-                  currentUser?.role === "TECHNICIAN") && (
-                  <td>
-                    <div className="text-start ps-4">
+              {currentUser?.role !== "USER" && (
+                  <td className="flex items-center gap-3 py-1">
+                    {issue.user.image ? (
+                      <Image
+                        src={issue.user.image}
+                        className="rounded-full w-40 h-40"
+                        width={50}
+                        height={50}
+                        alt=""
+                      />
+                    ) : (
+                      <div>
+                        <FaCircleUser className="text-4xl" />
+                      </div>
+                    )}
+                    <div className="text-start">
                       <h1>{issue.user.name}</h1>
                       <h1 className="text-sm text-gray-500">
                         {issue.user.email}
                       </h1>
                     </div>
                   </td>
-                ))}
-              {currentUser?.role !== "USER" && (
-                <td className="text-sm max-w-[200px] text-start">{issue.user.address || "no address"}</td>
-              )}
+                )}
               <td>
                 <div>
                   <h1>{issue.createdAt.toISOString().split("T")[0]}</h1>{" "}
@@ -123,9 +141,26 @@ async function page() {
                   </h1>
                 </div>
               </td>
+              <td>
+                {issue.assignedAt ? <div>
+                  <h1>{issue.assignedAt?.toISOString().split("T")[0]}</h1>{" "}
+                  <h1 className="text-sm text-gray-500">
+                    {timeAgo(issue.assignedAt?.toISOString())}
+                  </h1>
+                </div>:<h1>waiting...</h1>}
+              </td>
+
+              {currentUser?.role !== "USER" && (
+                <td>
+                  <TooltipDemo
+                    name={"location"}
+                    desc={issue.user.address || "no location"}
+                  />
+                </td>
+              )}
               {currentUser?.role === "MANAGER" && (
                 <td>
-                  <AssignTech issue={issue} technicians={technicians}/>
+                  <AssignTech issue={issue} technicians={technicians} />
                 </td>
               )}
               {currentUser?.role === "TECHNICIAN" && (
@@ -137,13 +172,6 @@ async function page() {
           ))}
         </tbody>
       </table>
-      {currentUser?.role !== "USER" && (
-        <div className="mt-32">
-          <h1 className="my-4 text-end font-bold text-xl">Locations on Map</h1>
-          <pre>{JSON.stringify(issues, null, 2)}</pre>
-          {/* <MapComponent locations={locations} /> */}
-        </div>
-      )}
     </div>
   );
 }
