@@ -31,7 +31,7 @@ const LineChart = ({ data1, data2, labels }:any) => {
     ],
   };
 
-  const options = {
+  const options:any = {
     responsive: true,
     plugins: {
       legend: {

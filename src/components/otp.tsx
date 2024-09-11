@@ -10,7 +10,7 @@ export function InputOTPDemo({ issueId }: any) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
   // Function to handle changes in OTP slots
-  const handleSlotChange = (index, value) => {
+  const handleSlotChange = (index:any, value:any) => {
     if (value.length > 1) return;
 
     const newOtp = [...otp];
@@ -25,7 +25,7 @@ export function InputOTPDemo({ issueId }: any) {
   };
 
   // Function to handle backspace key press
-  const handleKeyDown = (index, event) => {
+  const handleKeyDown = (index:any, event:any) => {
     if (event.key === "Backspace" && otp[index] === "") {
       if (index > 0) {
         const prevInput = document.getElementById(`otp-input-${index - 1}`);
@@ -40,7 +40,7 @@ export function InputOTPDemo({ issueId }: any) {
   };
 
   // Function to handle paste event
-  const handlePaste = (event) => {
+  const handlePaste = (event:any) => {
     event.preventDefault();
     const pasteData = event.clipboardData.getData("text").slice(0, 6); // Limit paste to 6 characters
     const newOtp = [...otp];

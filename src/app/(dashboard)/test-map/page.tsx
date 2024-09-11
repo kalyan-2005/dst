@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
       fetch(`/api/can-details?can=${"621159828"}`, {
@@ -20,7 +20,7 @@ export default function Home() {
     return <div>Loading...</div>;
   }
 
-  const connDetails = data.m_Item1;
+  const connDetails= data.m_Item1;
 
   return (
     <div>

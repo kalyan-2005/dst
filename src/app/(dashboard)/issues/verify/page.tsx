@@ -9,10 +9,10 @@ import { FaCircleUser } from "react-icons/fa6";
 async function page() {
   function timeAgo(timestamp: any) {
     // Step 1: Parse the timestamp
-    const pastDate = new Date(timestamp);
+    const pastDate:any = new Date(timestamp);
 
     // Step 2: Get the current time
-    const now = new Date();
+    const now:any = new Date();
 
     // Step 3: Calculate the difference in milliseconds
     const diffMs = now - pastDate;

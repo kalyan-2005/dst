@@ -8,7 +8,7 @@ const SendMail = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     const emailData = {
