@@ -74,7 +74,11 @@ export const getIssuesForUser = async (status: any) => {
             status: status,
         },
         include: {
-            user: true,
+            user: {
+                include:{
+                    sensor: true
+                }
+            },
             assignedTo: true
         },
         orderBy: {
