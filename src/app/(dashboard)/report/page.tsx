@@ -8,11 +8,16 @@ import { FaCircleUser } from "react-icons/fa6";
 
 async function page() {
   const currentUser = await getCurrentUser();
-  const { address, mobile, registeredName }: any = await getAddress();
+  const address: any = await getAddress();
+
+  if(!currentUser || !address || !address.address || !address.mobile || !address.registeredName) return null
+
+  const { address: sa, mobile, registeredName } = address
+
   return (
     <div className="m-10 flex gap-8">
       <ReportIssuePage
-        savedAddress={address}
+        savedAddress={sa}
         savedMobile={mobile}
         savedName={registeredName}
       />
