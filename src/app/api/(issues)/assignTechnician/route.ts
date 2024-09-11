@@ -13,5 +13,7 @@ export async function POST(request: Request) {
             assignedAt: new Date(),
         },
     });
-    return NextResponse.json(issue);
+    return NextResponse.json({
+        sucess:true,
+    });
 }

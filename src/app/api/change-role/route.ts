@@ -12,5 +12,8 @@ export async function POST(request:Request) {
             role
         }
     });
-    return NextResponse.json(user);
+    return NextResponse.json({
+        sucess:true,
+
+    });
 }

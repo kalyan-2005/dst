@@ -12,5 +12,8 @@ export async function POST(request: Request) {
             feedback: Number(stars)
         }
     });
-    return NextResponse.json(issue);
+    return NextResponse.json({
+        sucess:true,
+
+    });
 }

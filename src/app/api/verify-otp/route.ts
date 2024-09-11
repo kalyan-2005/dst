@@ -20,5 +20,8 @@ export async function POST(req: Request) {
             status: "CLOSE"
         }
     })
-    return NextResponse.json(user);
+    return NextResponse.json({
+        sucess:true,
+
+    });
 }

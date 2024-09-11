@@ -18,5 +18,7 @@ export async function POST(request: Request) {
             userId:userId
         }
     })
-    return NextResponse.json(issue);
+    return NextResponse.json({
+        sucess:true,
+    });
 }

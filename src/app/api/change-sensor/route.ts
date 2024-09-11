@@ -12,5 +12,8 @@ export async function POST(request: Request) {
             sensorId,
         },
     });
-    return NextResponse.json(sensor);
+    return NextResponse.json({
+        sucess:true,
+
+    });
 }
