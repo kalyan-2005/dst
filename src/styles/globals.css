@@ -106,3 +106,20 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(156 163 175); /* Set the color of the scrollbar thumb on hover */
 }
+
+
+/* headlines */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 5s linear infinite;
+}

@@ -112,6 +112,7 @@ export function InputOTPDemo({ issueId }: any) {
       });
       if (response.ok) {
         toast.success("Thank you for your feedback");
+        router.push("/issues/resolved");
       } else {
         toast.error("Failed to submit feedback");
       }
