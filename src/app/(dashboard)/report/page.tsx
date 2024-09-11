@@ -48,7 +48,7 @@ async function page() {
           <div>
             {!address ? (
               <AddressInReport
-                savedAddress={address}
+                savedAddress={sa}
                 savedMobile={mobile}
                 savedName={registeredName}
               />
@@ -77,7 +77,7 @@ async function page() {
                 <div>
                   <h1>Address</h1>
                   <h1 className="text-l py-1 px-2 rounded bg-secondary border-violet-300 border-2">
-                    {address}
+                    {sa}
                   </h1>
                 </div>
               </div>
