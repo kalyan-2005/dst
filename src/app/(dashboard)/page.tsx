@@ -20,7 +20,7 @@ export default async function Home() {
                 Water Pressure
               </h1>
               <h1 className="text-4xl font-black">
-                4.53 <span className="text-lg">psi</span>
+                4.53 <span className="text-lg">pa</span>
               </h1>
             </div>
             <div className="p-6 px-8 rounded-xl border-2 border-black relative">
@@ -28,7 +28,7 @@ export default async function Home() {
                 Water Flowrate
               </h1>
               <h1 className="text-4xl font-black">
-                2.68 <span className="text-lg">gpm</span>
+                2.68 <span className="text-lg">lpm</span>
               </h1>
             </div>
           </div>
