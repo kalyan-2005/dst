@@ -10,7 +10,7 @@ async function page() {
   const address: any = await getAddress();
   const issues = await getIssuesForUser("CLOSE");
 
-  if(!address.address) return null;
+  if(!address) return null;
   // Calculate the total sum of time differences in hours
   const totalTimeInHours = issues?.reduce((total: number, issue: any) => {
     const createdAt = new Date(issue.createdAt);
