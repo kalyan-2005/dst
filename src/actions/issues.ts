@@ -29,7 +29,7 @@ export const getIssuesForUser = async (status: any) => {
                         address: true,
                         sensor: true
                     }
-                }
+                },
             },
             orderBy: {
                 createdAt: 'desc'
