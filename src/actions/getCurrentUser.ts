@@ -55,7 +55,7 @@ export const getAddress = async() => {
       }
     });
     return {
-      address: address?.address,
+      address: address?.address||'NA',
       mobile: address?.mobile,
       registeredName: address?.registeredName
     } as any;
