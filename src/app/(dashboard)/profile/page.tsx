@@ -19,7 +19,7 @@ async function page() {
   }, 0);
 
   // Calculate the average time in hours
-  const avgTimeInHours = totalTimeInHours ? (totalTimeInHours / issues.length).toFixed(2) : 0;
+  const avgTimeInHours = totalTimeInHours ? issues&&issues.length > 0 ? (totalTimeInHours / issues.length).toFixed(2):0 : 0;
 
   // Filter issues that have feedback
   const filteredIssues = issues?.filter((issue: any) => issue.feedback != null);
@@ -33,7 +33,7 @@ async function page() {
     <div className="mx-32 flex mt-8 gap-4">
       <PersonalProfile
         currentUser={currentUser}
-        address={address.address}
+        address={address.address||'NA'}
         mobile={address.mobile}
         registeredName={address.registeredName}
       />
